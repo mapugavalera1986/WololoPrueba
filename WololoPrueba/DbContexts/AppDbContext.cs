@@ -11,10 +11,10 @@ public class AppDbContext : DbContext
     {
         modelBuilder.Entity<Civ>().HasData(
             new Civ { CivId=1, CivName= "Asirios",
-                FotoUrl= "https://static.wikia.nocookie.net/ageofempires/images/f/f8/Assyrian_AOE_DE_ROR_icon.png/revision/latest?cb=20230611040714"
+                FotoUrl= "https://static.wikia.nocookie.net/ageofempires/images/f/f8/Assyrian_AOE_DE_ROR_icon.png"
             },
             new Civ { CivId=2, CivName="Babilonios",
-                FotoUrl= "https://static.wikia.nocookie.net/ageofempires/images/f/fe/Babylonian_AOE_DE_ROR_icon.png/revision/latest?cb=20230611040835"
+                FotoUrl= "https://static.wikia.nocookie.net/ageofempires/images/f/fe/Babylonian_AOE_DE_ROR_icon.png"
             }
         );
     }
