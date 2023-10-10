@@ -11,7 +11,7 @@ using WololoPrueba.DbContexts;
 namespace WololoPrueba.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20231008172711_initial")]
+    [Migration("20231010050559_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
