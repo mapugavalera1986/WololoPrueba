@@ -6,7 +6,8 @@ public class AppDbContext : DbContext
 {
     public AppDbContext() { }
     public AppDbContext(DbContextOptions options) : base(options) { }
-    public DbSet<Civ>LasCivs { get; set; }
+    public DbSet<Civ> LasCivs { get; set; }
+    public DbSet<Colegio> LosColegios { get; set; }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Civ>().HasData(
