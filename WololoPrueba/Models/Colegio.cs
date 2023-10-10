@@ -1,8 +1,8 @@
 ﻿namespace WololoPrueba.Models;
 
-public class CentroEdu
+public class Colegio
 {
-    public int CentroEduId { get; set; }
+    public int ColegioId { get; set; }
     public string Nmbr { get; set; }
     public string Nivel { get; set; }
     public string Direccn { get; set; }
