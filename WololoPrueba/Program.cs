@@ -18,6 +18,7 @@ builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(cone
 //Inyectar dependencias necesarias para repositorios
 builder.Services.AddScoped<ICivRepository, CivRepository>();
 builder.Services.AddScoped<IColegioRepository, ColegioRepository>();
+builder.Services.AddScoped<IParticipanteRepository, ParticipanteRepository>();
 
 var app = builder.Build();
 
