@@ -17,5 +17,17 @@ namespace WololoPrueba.Controllers
         [HttpGet]
         [Route("{id}")]
         public async Task<Colegio> Buscar(int id) { return await colegioRepository.Buscar(id); }
+
+        [HttpPost]
+        [Route("agregar")]
+        public async Task<Colegio> Agregar(Colegio nuevo_c) { return await colegioRepository.Agregar(nuevo_c); }
+
+        [HttpPut]
+        [Route("modificar")]
+        public async Task<Colegio> Modificar(Colegio cambiar_c) { return await colegioRepository.Modificar(cambiar_c); }
+
+        [HttpDelete]
+        [Route("eliminar")]
+        public async Task<bool> Eliminar(int id) { return await colegioRepository.Eliminar(id); }
     }
 }
