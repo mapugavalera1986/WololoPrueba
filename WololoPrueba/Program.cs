@@ -19,6 +19,7 @@ builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(cone
 builder.Services.AddScoped<ICivRepository, CivRepository>();
 builder.Services.AddScoped<IColegioRepository, ColegioRepository>();
 builder.Services.AddScoped<IParticipanteRepository, ParticipanteRepository>();
+builder.Services.AddScoped<IEnsayoRepository, EnsayoRepository>();
 
 var app = builder.Build();
 
