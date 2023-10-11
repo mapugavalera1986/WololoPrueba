@@ -1,4 +1,5 @@
 ﻿using WololoPrueba.Models;
+using WololoPrueba.ObjetosTransferir;
 
 namespace WololoPrueba.Repositories
 {
@@ -6,7 +7,7 @@ namespace WololoPrueba.Repositories
     {
         public Task<IEnumerable<Colegio>> Listar();
         public Task<Colegio> Buscar(int id);
-        public Task<Colegio> Agregar(Colegio nuevo_c);
+        public Task<Colegio> Agregar(ColegioCrearDto nuevo_c);
         public Task<Colegio> Modificar(Colegio cambiar_c);
         public Task<bool> Eliminar(int id);
     }

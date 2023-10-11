@@ -1,6 +1,7 @@
 using WololoPrueba.DbContexts;
 using Microsoft.EntityFrameworkCore;
 using WololoPrueba.Repositories;
+using WololoPrueba.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,15 +11,16 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddAutoMapper(typeof(Program));
 
 //Configurar Entity Framework y la conexión con SQL Server
 var conectarDb = builder.Configuration.GetConnectionString("WololoDB");
 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(conectarDb));
 
 //Inyectar dependencias necesarias para repositorios
-builder.Services.AddScoped<ICivRepository, CivRepository>();
-builder.Services.AddScoped<IColegioRepository, ColegioRepository>();
-builder.Services.AddScoped<IParticipanteRepository, ParticipanteRepository>();
+builder.Services.AddScoped<ICivRepository, CivService>();
+builder.Services.AddScoped<IColegioRepository, ColegioService>();
+builder.Services.AddScoped<IParticipanteRepository, ParticipanteService>();
 
 var app = builder.Build();
 

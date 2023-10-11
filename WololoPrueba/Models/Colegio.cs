@@ -1,19 +1,12 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace WololoPrueba.Models;
-
-public class Colegio
+namespace WololoPrueba.Models
 {
-    public int ColegioId { get; set; }
-
-    [Required(ErrorMessage = "Es obligatorio un nombre")]
-    public string Nmbr { get; set; }
-
-    [Required(ErrorMessage = "Se requiere determinar el nivel")]
-    public string Nivel { get; set; }
-    
-    [Required(ErrorMessage = "Se requiere ingresar la dirección del local")]
-    public string Direccn { get; set; }
-
-    public ICollection<Participante> LosParticipantes { get; set;}//No funciona como esperas, pide ayuda
+    public class Colegio
+    {
+        public int ColegioId { get; set; }
+        public string Nmbr { get; set; }
+        public string Nivel { get; set; }
+        public string Direccn { get; set; }
+    }
 }

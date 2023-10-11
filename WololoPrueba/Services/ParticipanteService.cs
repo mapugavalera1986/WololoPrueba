@@ -1,14 +1,23 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using WololoPrueba.DbContexts;
 using WololoPrueba.Models;
+using WololoPrueba.ObjetosTransferir;
+using WololoPrueba.Repositories;
 
-namespace WololoPrueba.Repositories
+namespace WololoPrueba.Services
 {
-    public class ParticipanteRepository : IParticipanteRepository
+    public class ParticipanteService : IParticipanteRepository
     {
         private readonly AppDbContext bdcontexto;
-        public ParticipanteRepository(AppDbContext bdcontexto) { this.bdcontexto = bdcontexto; }
-        public ParticipanteRepository() { }
+        private readonly IMapper mapeador;
+
+        public ParticipanteService(AppDbContext bdcontexto, IMapper mapeador)
+        {
+            this.bdcontexto = bdcontexto;
+            this.mapeador = mapeador;
+        }
+        public ParticipanteService() { }
 
         public async Task<IEnumerable<Participante>> Listar()
         {
@@ -21,11 +30,12 @@ namespace WololoPrueba.Repositories
             return participante;
         }
 
-        public async Task<Participante> Agregar(Participante nuevo_p)
+        public async Task<Participante> Agregar(ParticipanteCrearDto nuevo_p)
         {
-            bdcontexto.LosParticipantes.Add(nuevo_p);
+            var participante_nuevo = mapeador.Map<Participante>(nuevo_p);
+            bdcontexto.LosParticipantes.Add(participante_nuevo);
             await bdcontexto.SaveChangesAsync();
-            return nuevo_p;
+            return participante_nuevo;
         }
 
         public async Task<Participante> Modificar(Participante cambiar_p)
@@ -38,7 +48,7 @@ namespace WololoPrueba.Repositories
         public async Task<bool> Eliminar(int id)
         {
             var participante = await bdcontexto.LosParticipantes.Where(p => p.ParticipanteId == id).FirstOrDefaultAsync();
-            if(participante == null) { return false; }
+            if (participante == null) { return false; }
             bdcontexto.LosParticipantes.Remove(participante);
             await bdcontexto.SaveChangesAsync();
             return true;
