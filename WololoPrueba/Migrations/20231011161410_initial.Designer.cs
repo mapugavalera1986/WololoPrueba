@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WololoPrueba.DbContexts;
 
@@ -11,9 +12,10 @@ using WololoPrueba.DbContexts;
 namespace WololoPrueba.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231011161410_initial")]
+    partial class initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -168,31 +170,6 @@ namespace WololoPrueba.Migrations
                     b.HasKey("ColegioId");
 
                     b.ToTable("LosColegios");
-                });
-
-            modelBuilder.Entity("WololoPrueba.Models.Ensayo", b =>
-                {
-                    b.Property<int>("EnsayoId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("EnsayoId"), 1L, 1);
-
-                    b.Property<int>("CivId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Descripcion")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("FechaEntrega")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("ParticipanteId")
-                        .HasColumnType("int");
-
-                    b.HasKey("EnsayoId");
-
-                    b.ToTable("LosEnsayos");
                 });
 
             modelBuilder.Entity("WololoPrueba.Models.Participante", b =>
