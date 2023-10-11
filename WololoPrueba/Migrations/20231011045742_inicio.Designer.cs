@@ -12,7 +12,7 @@ using WololoPrueba.DbContexts;
 namespace WololoPrueba.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20231011023612_inicio")]
+    [Migration("20231011045742_inicio")]
     partial class inicio
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -156,12 +156,15 @@ namespace WololoPrueba.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ColegioId"), 1L, 1);
 
                     b.Property<string>("Direccn")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Nivel")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Nmbr")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ColegioId");
@@ -178,9 +181,14 @@ namespace WololoPrueba.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ParticipanteId"), 1L, 1);
 
                     b.Property<string>("Aplld")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("ColegioId")
+                        .HasColumnType("int");
+
                     b.Property<string>("CorreoE")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Dni")
@@ -190,11 +198,30 @@ namespace WololoPrueba.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Nmbrs")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ParticipanteId");
 
+                    b.HasIndex("ColegioId");
+
                     b.ToTable("LosParticipantes");
+                });
+
+            modelBuilder.Entity("WololoPrueba.Models.Participante", b =>
+                {
+                    b.HasOne("WololoPrueba.Models.Colegio", "Colegio")
+                        .WithMany("LosParticipantes")
+                        .HasForeignKey("ColegioId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Colegio");
+                });
+
+            modelBuilder.Entity("WololoPrueba.Models.Colegio", b =>
+                {
+                    b.Navigation("LosParticipantes");
                 });
 #pragma warning restore 612, 618
         }

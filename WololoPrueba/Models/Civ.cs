@@ -1,8 +1,9 @@
-﻿namespace WololoPrueba.Models;
-
-public class Civ
+﻿namespace WololoPrueba.Models
 {
-    public int CivId { get; set; } 
-    public string CivName { get; set;}
-    public string FotoUrl { get; set;}
+    public class Civ
+    {
+        public int CivId { get; set; }
+        public string CivName { get; set; }
+        public string FotoUrl { get; set; }
+    }
 }

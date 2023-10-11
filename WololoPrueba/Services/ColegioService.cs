@@ -1,14 +1,23 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using WololoPrueba.DbContexts;
 using WololoPrueba.Models;
+using WololoPrueba.ObjetosTransferir;
+using WololoPrueba.Repositories;
 
-namespace WololoPrueba.Repositories
+namespace WololoPrueba.Services
 {
-    public class ColegioRepository : IColegioRepository
+    public class ColegioService : IColegioRepository
     {
         private readonly AppDbContext bdcontexto;
-        public ColegioRepository(AppDbContext bdcontexto) { this.bdcontexto = bdcontexto; }
-        public ColegioRepository() { }
+        private readonly IMapper mapeador;
+
+        public ColegioService(AppDbContext bdcontexto, IMapper mapeador)
+        {
+            this.bdcontexto = bdcontexto;
+            this.mapeador = mapeador;
+        }
+        public ColegioService() { }
 
         public async Task<IEnumerable<Colegio>> Listar()
         {
@@ -21,11 +30,12 @@ namespace WololoPrueba.Repositories
             return colegio;
         }
 
-        public async Task<Colegio> Agregar(Colegio nuevo_c)
+        public async Task<Colegio> Agregar(ColegioCrearDto nuevo_c)
         {
-            bdcontexto.LosColegios.Add(nuevo_c);
+            var colegio_nuevo = mapeador.Map<Colegio>(nuevo_c);
+            bdcontexto.LosColegios.Add(colegio_nuevo);
             await bdcontexto.SaveChangesAsync();
-            return nuevo_c;
+            return colegio_nuevo;
         }
 
         public async Task<Colegio> Modificar(Colegio cambiar_c)

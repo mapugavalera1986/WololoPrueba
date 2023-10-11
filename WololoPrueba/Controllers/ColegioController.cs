@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using WololoPrueba.Models;
+using WololoPrueba.ObjetosTransferir;
 using WololoPrueba.Repositories;
 
 namespace WololoPrueba.Controllers
@@ -20,7 +21,7 @@ namespace WololoPrueba.Controllers
 
         [HttpPost]
         [Route("agregar")]
-        public async Task<Colegio> Agregar(Colegio nuevo_c) { return await colegioRepository.Agregar(nuevo_c); }
+        public async Task<Colegio> Agregar(ColegioCrearDto nuevo_c) { return await colegioRepository.Agregar(nuevo_c); }
 
         [HttpPut]
         [Route("modificar")]

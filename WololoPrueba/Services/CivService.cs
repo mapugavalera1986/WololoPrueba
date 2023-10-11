@@ -1,14 +1,19 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using WololoPrueba.DbContexts;
 using WololoPrueba.Models;
+using WololoPrueba.Repositories;
 
-namespace WololoPrueba.Repositories
+namespace WololoPrueba.Services
 {
-    public class CivRepository: ICivRepository
+    public class CivService : ICivRepository
     {
         private readonly AppDbContext bdcontexto;
-        public CivRepository(AppDbContext bdcontexto) { this.bdcontexto = bdcontexto; }
-        public CivRepository() { }
+        public CivService(AppDbContext bdcontexto)
+        {
+            this.bdcontexto = bdcontexto;
+        }
+        public CivService() { }
 
         public async Task<Civ> Buscar(int civId)
         {

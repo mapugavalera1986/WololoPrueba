@@ -1,14 +1,15 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using WololoPrueba.DbContexts;
 using WololoPrueba.Models;
+using WololoPrueba.Repositories;
 
-namespace WololoPrueba.Repositories
+namespace WololoPrueba.Services
 {
-    public class EnsayoRepository : IEnsayoRepository
+    public class EnsayoService : IEnsayoRepository
     {
-        private readonly AppDbContext bdContexto;    
-        public EnsayoRepository(AppDbContext bdContexto) { this.bdContexto = bdContexto; }
-        public EnsayoRepository() { }
+        private readonly AppDbContext bdContexto;
+        public EnsayoService(AppDbContext bdContexto) { this.bdContexto = bdContexto; }
+        public EnsayoService() { }
 
 
         public async Task<Ensayo> Agregar(Ensayo ensayo)
@@ -26,7 +27,7 @@ namespace WololoPrueba.Repositories
 
         public async Task<IEnumerable<Ensayo>> Listar()
         {
-            return await bdContexto.LosEnsayos.ToListAsync();       
+            return await bdContexto.LosEnsayos.ToListAsync();
         }
     }
 }
