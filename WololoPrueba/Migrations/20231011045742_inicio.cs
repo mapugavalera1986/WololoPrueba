@@ -29,9 +29,9 @@ namespace WololoPrueba.Migrations
                 {
                     ColegioId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Nmbr = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Nivel = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Direccn = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Nmbr = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Nivel = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Direccn = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -44,15 +44,22 @@ namespace WololoPrueba.Migrations
                 {
                     ParticipanteId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Nmbrs = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Aplld = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Nmbrs = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Aplld = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Dni = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     FechaNac = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    CorreoE = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    CorreoE = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ColegioId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_LosParticipantes", x => x.ParticipanteId);
+                    table.ForeignKey(
+                        name: "FK_LosParticipantes_LosColegios_ColegioId",
+                        column: x => x.ColegioId,
+                        principalTable: "LosColegios",
+                        principalColumn: "ColegioId",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.InsertData(
@@ -78,6 +85,11 @@ namespace WololoPrueba.Migrations
                     { 16, "Sumerios", "https://static.wikia.nocookie.net/ageofempires/images/4/44/Sumerian_AOE_DE_ROR_icon.png" },
                     { 17, "Yamato", "https://static.wikia.nocookie.net/ageofempires/images/8/82/Yamato_AOE_DE_ROR_icon.png" }
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_LosParticipantes_ColegioId",
+                table: "LosParticipantes",
+                column: "ColegioId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -86,10 +98,10 @@ namespace WololoPrueba.Migrations
                 name: "LasCivs");
 
             migrationBuilder.DropTable(
-                name: "LosColegios");
+                name: "LosParticipantes");
 
             migrationBuilder.DropTable(
-                name: "LosParticipantes");
+                name: "LosColegios");
         }
     }
 }

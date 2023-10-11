@@ -21,6 +21,8 @@ public class Participante
 
     [Required(ErrorMessage = "Se requiere de un correo electrónico")]
     public string CorreoE { get; set; }
+    public int ColegioId { get; set; }
+    public Colegio Colegio { get; set; }
 }
 
 

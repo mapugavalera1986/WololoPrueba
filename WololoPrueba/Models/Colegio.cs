@@ -11,7 +11,9 @@ public class Colegio
 
     [Required(ErrorMessage = "Se requiere determinar el nivel")]
     public string Nivel { get; set; }
-
+    
     [Required(ErrorMessage = "Se requiere ingresar la dirección del local")]
     public string Direccn { get; set; }
+
+    public ICollection<Participante> LosParticipantes { get; set;}//No funciona como esperas, pide ayuda
 }
