@@ -1,14 +1,26 @@
-﻿namespace WololoPrueba.Models;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+
+namespace WololoPrueba.Models;
 
 public class Participante
 {
     public int ParticipanteId { get; set; }
-    public string Nmbrs { get; set; }
-    public string Aplld { get; set; }
-    public string Dni { get; set; }
-    public DateTime FechaNac { get; set; }
-    public string CorreoE { get; set; }
 
+    [Required(ErrorMessage = "Es obligatorio un nombre")]
+    public string Nmbrs { get; set; }
+
+    [Required(ErrorMessage = "Es obligatorio un apellido")]
+    public string Aplld { get; set; }
+
+    [DefaultValue("")]
+    public string Dni { get; set; }
+
+    [Required(ErrorMessage = "Se necesita ingresar una fecha de nacimiento")]
+    public DateTime FechaNac { get; set; }
+
+    [Required(ErrorMessage = "Se requiere de un correo electrónico")]
+    public string CorreoE { get; set; }
 }
 
 

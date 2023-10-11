@@ -40,6 +40,7 @@ namespace WololoPrueba.Repositories
             var colegio = await bdcontexto.LosColegios.Where(c => c.ColegioId == id).FirstOrDefaultAsync();
             if (colegio == null) { return false; }
             bdcontexto.LosColegios.Remove(colegio);
+            await bdcontexto.SaveChangesAsync();
             return true;
         }
     }

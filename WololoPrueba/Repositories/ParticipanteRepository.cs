@@ -40,6 +40,7 @@ namespace WololoPrueba.Repositories
             var participante = await bdcontexto.LosParticipantes.Where(p => p.ParticipanteId == id).FirstOrDefaultAsync();
             if(participante == null) { return false; }
             bdcontexto.LosParticipantes.Remove(participante);
+            await bdcontexto.SaveChangesAsync();
             return true;
         }
     }
