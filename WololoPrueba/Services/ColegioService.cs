@@ -19,9 +19,15 @@ namespace WololoPrueba.Services
         }
         public ColegioService() { }
 
-        public async Task<IEnumerable<Colegio>> Listar()
+        public Task<IEnumerable<ColegioCrearDto>> Listar()
         {
-            return await bdcontexto.LosColegios.ToListAsync();
+            return Listar(bdcontexto);
+        }
+
+        public async Task<IEnumerable<ColegioCrearDto>> Listar(AppDbContext bdcontexto)
+        {
+            var lascosas = await bdcontexto.LosColegios.ForEachAsync(c => mapeador.Map<ColegioCrearDto>(c));
+            return lascosas;
         }
 
         public async Task<Colegio> Buscar(int id)

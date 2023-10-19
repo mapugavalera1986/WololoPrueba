@@ -13,7 +13,7 @@ namespace WololoPrueba.Controllers
         public ColegioController(IColegioRepository colegioRepository) { this.colegioRepository = colegioRepository; }
 
         [HttpGet]
-        public async Task<IEnumerable<Colegio>> Listar() { return await colegioRepository.Listar(); }
+        public async Task<IEnumerable<ColegioCrearDto>> Listar() { return await colegioRepository.Listar(); }
 
         [HttpGet]
         [Route("{id}")]
