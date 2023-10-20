@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using WololoPrueba.DbContexts;
 using WololoPrueba.Models;
+using WololoPrueba.ObjetosTransferir;
 using WololoPrueba.Repositories;
 
 namespace WololoPrueba.Services
@@ -9,21 +10,25 @@ namespace WololoPrueba.Services
     public class CivService : ICivRepository
     {
         private readonly AppDbContext bdcontexto;
-        public CivService(AppDbContext bdcontexto)
+        private readonly IMapper mapeador;
+
+        public CivService(AppDbContext bdcontexto, IMapper mapeador)
         {
             this.bdcontexto = bdcontexto;
+            this.mapeador = mapeador;
         }
         public CivService() { }
 
-        public async Task<Civ> Buscar(int civId)
+        public async Task<CivDto> Buscar(int civId)
         {
             var civ = await bdcontexto.LasCivs.Where(c => c.CivId == civId).FirstOrDefaultAsync();
-            return civ;
+            return mapeador.Map<CivDto>(civ);
         }
 
-        public async Task<IEnumerable<Civ>> Listar()
+        public async Task<IEnumerable<CivDto>> Listar()
         {
-            return await bdcontexto.LasCivs.ToListAsync();
+            var las_civs = await bdcontexto.LasCivs.ToListAsync();
+            return mapeador.Map<List<CivDto>>(las_civs);
         }
     }
 }

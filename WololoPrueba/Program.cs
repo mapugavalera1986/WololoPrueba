@@ -14,7 +14,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddAutoMapper(typeof(Program));
 
 //Configurar Entity Framework y la conexión con SQL Server
-var conectarDb = builder.Configuration.GetConnectionString("WololoDB");
+var conectarDb = builder.Configuration.GetConnectionString("MarioAguDB");
 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(conectarDb));
 
 
