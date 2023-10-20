@@ -11,6 +11,7 @@ namespace WololoPrueba.Utilities
             CreateMap<Civ, CivDto>().ReverseMap();
             CreateMap<Colegio, ColegioCrearDto>().ReverseMap();
             CreateMap<Participante, ParticipanteCrearDto>().ReverseMap();
+            CreateMap<Premios , PremiosCrearDto>().ReverseMap();
         }
     }
 }

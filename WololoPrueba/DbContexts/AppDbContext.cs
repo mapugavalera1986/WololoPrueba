@@ -11,6 +11,8 @@ namespace WololoPrueba.DbContexts
         public DbSet<Colegio> LosColegios { get; set; }
         public DbSet<Participante> LosParticipantes { get; set; }
         public DbSet<Ensayo> LosEnsayos { get; set; }
+        public DbSet<Premios> LosPremios { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Civ>().HasData(
@@ -117,6 +119,7 @@ namespace WololoPrueba.DbContexts
                     FotoUrl = "https://static.wikia.nocookie.net/ageofempires/images/8/82/Yamato_AOE_DE_ROR_icon.png"
                 }
             );
+
         }
     }
 }

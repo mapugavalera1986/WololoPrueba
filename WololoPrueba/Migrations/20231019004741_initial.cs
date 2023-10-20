@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace WololoPrueba.Migrations
 {
-    public partial class inicio : Migration
+    public partial class initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -29,13 +29,42 @@ namespace WololoPrueba.Migrations
                 {
                     ColegioId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Nmbr = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Nivel = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Direccn = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Nmbr = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Nivel = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Direccn = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_LosColegios", x => x.ColegioId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "LosEnsayos",
+                columns: table => new
+                {
+                    EnsayoId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Descripcion = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ParticipanteId = table.Column<int>(type: "int", nullable: false),
+                    CivId = table.Column<int>(type: "int", nullable: false),
+                    FechaEntrega = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_LosEnsayos", x => x.EnsayoId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "LosPremios",
+                columns: table => new
+                {
+                    PremioId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    nombPremio = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_LosPremios", x => x.PremioId);
                 });
 
             migrationBuilder.CreateTable(
@@ -44,11 +73,11 @@ namespace WololoPrueba.Migrations
                 {
                     ParticipanteId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Nmbrs = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Aplld = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Nmbrs = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Aplld = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Dni = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     FechaNac = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    CorreoE = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CorreoE = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ColegioId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -59,6 +88,26 @@ namespace WololoPrueba.Migrations
                         column: x => x.ColegioId,
                         principalTable: "LosColegios",
                         principalColumn: "ColegioId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "LasPremiaciones",
+                columns: table => new
+                {
+                    PremiacionesId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    PremioId = table.Column<int>(type: "int", nullable: false),
+                    ParticipanteId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_LasPremiaciones", x => x.PremiacionesId);
+                    table.ForeignKey(
+                        name: "FK_LasPremiaciones_LosParticipantes_ParticipanteId",
+                        column: x => x.ParticipanteId,
+                        principalTable: "LosParticipantes",
+                        principalColumn: "ParticipanteId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -87,6 +136,11 @@ namespace WololoPrueba.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_LasPremiaciones_ParticipanteId",
+                table: "LasPremiaciones",
+                column: "ParticipanteId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_LosParticipantes_ColegioId",
                 table: "LosParticipantes",
                 column: "ColegioId");
@@ -96,6 +150,15 @@ namespace WololoPrueba.Migrations
         {
             migrationBuilder.DropTable(
                 name: "LasCivs");
+
+            migrationBuilder.DropTable(
+                name: "LasPremiaciones");
+
+            migrationBuilder.DropTable(
+                name: "LosEnsayos");
+
+            migrationBuilder.DropTable(
+                name: "LosPremios");
 
             migrationBuilder.DropTable(
                 name: "LosParticipantes");
