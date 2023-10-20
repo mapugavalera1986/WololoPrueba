@@ -5,7 +5,7 @@ namespace WololoPrueba.Repositories
 {
     public interface IColegioRepository
     {
-        public Task<IEnumerable<ColegioCrearDto>> Listar();
+        public Task<IEnumerable<Colegio>> Listar();
         public Task<Colegio> Buscar(int id);
         public Task<Colegio> Agregar(ColegioCrearDto nuevo_c);
         public Task<Colegio> Modificar(Colegio cambiar_c);

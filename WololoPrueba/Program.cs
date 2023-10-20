@@ -14,7 +14,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddAutoMapper(typeof(Program));
 
 //Configurar Entity Framework y la conexión con SQL Server
-var conectarDb = builder.Configuration.GetConnectionString("MarioAguDB");
+var conectarDb = builder.Configuration.GetConnectionString("WololoDB");
 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(conectarDb));
 
 
@@ -22,7 +22,6 @@ builder.Services.AddScoped<ICivRepository, CivService>();
 builder.Services.AddScoped<IColegioRepository, ColegioService>();
 builder.Services.AddScoped<IParticipanteRepository, ParticipanteService>();
 builder.Services.AddScoped<IEnsayoRepository, EnsayoService>();
-builder.Services.AddScoped<IPremiosRepository, PremiosService>();
 
 
 var app = builder.Build();

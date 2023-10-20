@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WololoPrueba.DbContexts;
 
@@ -11,9 +12,10 @@ using WololoPrueba.DbContexts;
 namespace WololoPrueba.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231011173312_migrationEnsayo")]
+    partial class migrationEnsayo
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -207,9 +209,6 @@ namespace WololoPrueba.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("ColegioId")
-                        .HasColumnType("int");
-
                     b.Property<string>("CorreoE")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -226,25 +225,7 @@ namespace WololoPrueba.Migrations
 
                     b.HasKey("ParticipanteId");
 
-                    b.HasIndex("ColegioId");
-
                     b.ToTable("LosParticipantes");
-                });
-
-            modelBuilder.Entity("WololoPrueba.Models.Participante", b =>
-                {
-                    b.HasOne("WololoPrueba.Models.Colegio", "Colegio")
-                        .WithMany("LosParticipantes")
-                        .HasForeignKey("ColegioId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Colegio");
-                });
-
-            modelBuilder.Entity("WololoPrueba.Models.Colegio", b =>
-                {
-                    b.Navigation("LosParticipantes");
                 });
 #pragma warning restore 612, 618
         }

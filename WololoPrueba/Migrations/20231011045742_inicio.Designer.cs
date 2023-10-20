@@ -12,8 +12,8 @@ using WololoPrueba.DbContexts;
 namespace WololoPrueba.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20231019004741_initial")]
-    partial class initial
+    [Migration("20231011045742_inicio")]
+    partial class inicio
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -156,42 +156,20 @@ namespace WololoPrueba.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ColegioId"), 1L, 1);
 
                     b.Property<string>("Direccn")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Nivel")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Nmbr")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ColegioId");
 
                     b.ToTable("LosColegios");
-                });
-
-            modelBuilder.Entity("WololoPrueba.Models.Ensayo", b =>
-                {
-                    b.Property<int>("EnsayoId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("EnsayoId"), 1L, 1);
-
-                    b.Property<int>("CivId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Descripcion")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("FechaEntrega")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("ParticipanteId")
-                        .HasColumnType("int");
-
-                    b.HasKey("EnsayoId");
-
-                    b.ToTable("LosEnsayos");
                 });
 
             modelBuilder.Entity("WololoPrueba.Models.Participante", b =>
@@ -203,12 +181,14 @@ namespace WololoPrueba.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ParticipanteId"), 1L, 1);
 
                     b.Property<string>("Aplld")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("ColegioId")
                         .HasColumnType("int");
 
                     b.Property<string>("CorreoE")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Dni")
@@ -218,6 +198,7 @@ namespace WololoPrueba.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Nmbrs")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ParticipanteId");
@@ -227,47 +208,10 @@ namespace WololoPrueba.Migrations
                     b.ToTable("LosParticipantes");
                 });
 
-            modelBuilder.Entity("WololoPrueba.Models.Premiaciones", b =>
-                {
-                    b.Property<int>("PremiacionesId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PremiacionesId"), 1L, 1);
-
-                    b.Property<int>("ParticipanteId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PremioId")
-                        .HasColumnType("int");
-
-                    b.HasKey("PremiacionesId");
-
-                    b.HasIndex("ParticipanteId");
-
-                    b.ToTable("LasPremiaciones");
-                });
-
-            modelBuilder.Entity("WololoPrueba.Models.Premios", b =>
-                {
-                    b.Property<int>("PremioId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PremioId"), 1L, 1);
-
-                    b.Property<string>("nombPremio")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("PremioId");
-
-                    b.ToTable("LosPremios");
-                });
-
             modelBuilder.Entity("WololoPrueba.Models.Participante", b =>
                 {
                     b.HasOne("WololoPrueba.Models.Colegio", "Colegio")
-                        .WithMany()
+                        .WithMany("LosParticipantes")
                         .HasForeignKey("ColegioId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -275,15 +219,9 @@ namespace WololoPrueba.Migrations
                     b.Navigation("Colegio");
                 });
 
-            modelBuilder.Entity("WololoPrueba.Models.Premiaciones", b =>
+            modelBuilder.Entity("WololoPrueba.Models.Colegio", b =>
                 {
-                    b.HasOne("WololoPrueba.Models.Participante", "Participante")
-                        .WithMany()
-                        .HasForeignKey("ParticipanteId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Participante");
+                    b.Navigation("LosParticipantes");
                 });
 #pragma warning restore 612, 618
         }
