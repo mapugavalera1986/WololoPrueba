@@ -24,7 +24,7 @@ namespace WololoPrueba.Controllers
         public async Task<ParticipanteDto> Agregar(ParticipanteDto nuevo_p) { return await participanteRepository.Agregar(nuevo_p); }
 
         [HttpPut]
-        [Route("modificar")]
+        [Route("modificar/{id}")]
         public async Task<ParticipanteDto> Modificar(int id, ParticipanteDto cambiar_p) { return await participanteRepository.Modificar(id, cambiar_p); }
 
         [HttpDelete]

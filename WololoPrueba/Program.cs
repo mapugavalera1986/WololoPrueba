@@ -22,7 +22,7 @@ builder.Services.AddScoped<ICivRepository, CivService>();
 builder.Services.AddScoped<IColegioRepository, ColegioService>();
 builder.Services.AddScoped<IParticipanteRepository, ParticipanteService>();
 builder.Services.AddScoped<IEnsayoRepository, EnsayoService>();
-builder.Services.AddScoped<IPremiosRepository, PremiosService>();
+builder.Services.AddScoped<IPremioRepository, PremioService>();
 
 
 var app = builder.Build();

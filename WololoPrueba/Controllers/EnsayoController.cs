@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using WololoPrueba.Models;
+using WololoPrueba.ObjetosTransferir;
 using WololoPrueba.Repositories;
 
 namespace WololoPrueba.Controllers
@@ -13,24 +14,20 @@ namespace WololoPrueba.Controllers
 
         [HttpGet]
         [Route("listar")]
-        public async Task<IEnumerable<Ensayo>> listarEnsayo() {
+        public async Task<IEnumerable<EnsayoDto>> listarEnsayo() {
             return await ensayoRepository.Listar();
         }
         [HttpPost]
         [Route("agregar")]
-        public async Task<Ensayo> agregar(Ensayo ensayo)
+        public async Task<EnsayoDto> agregar(EnsayoDto ensayo)
         {
             return await ensayoRepository.Agregar(ensayo);
         }
         [HttpGet]
         [Route("buscar/{id}")]
-        public async Task<Ensayo> buscar(int id)
+        public async Task<EnsayoDto> buscar(int id)
         {
             return await ensayoRepository.Buscar(id);
         }
-        
-
-        
-        
     }
 }

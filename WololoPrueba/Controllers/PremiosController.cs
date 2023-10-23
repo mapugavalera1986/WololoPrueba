@@ -10,24 +10,24 @@ namespace WololoPrueba.Controllers
         [Route("api/[controller]")]
         public class PremiosController : ControllerBase
         {
-            private readonly IPremiosRepository premiosRepository;
-            public PremiosController(IPremiosRepository premiosRepository) { this.premiosRepository = premiosRepository; }
+            private readonly IPremioRepository premiosRepository;
+            public PremiosController(IPremioRepository premiosRepository) { this.premiosRepository = premiosRepository; }
 
             [HttpGet]
             [Route("listar")]
-            public async Task<IEnumerable<Premio>> Listar() { return await premiosRepository.Listar(); }
+            public async Task<IEnumerable<PremioDto>> Listar() { return await premiosRepository.Listar(); }
 
             [HttpGet]
             [Route("{id}")]
-            public async Task<Premio> Buscar(int id) { return await premiosRepository.Buscar(id); }
+            public async Task<PremioDto> Buscar(int id) { return await premiosRepository.Buscar(id); }
 
             [HttpPost]
             [Route("agregar")]
-            public async Task<Premio> Agregar(PremioDto nuevo_p) { return await premiosRepository.Agregar(nuevo_p); }
+            public async Task<PremioDto> Agregar(PremioDto nuevo_p) { return await premiosRepository.Agregar(nuevo_p); }
 
             [HttpPut]
-            [Route("modificar")]
-            public async Task<Premio> Modificar(Premio cambiar_p) { return await premiosRepository.Modificar(cambiar_p); }
+            [Route("modificar/{id}")]
+            public async Task<PremioDto> Modificar(int id, PremioDto cambiar_p) { return await premiosRepository.Modificar(id, cambiar_p); }
 
             [HttpDelete]
             [Route("eliminar")]
