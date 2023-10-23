@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WololoPrueba.DbContexts;
 using WololoPrueba.Models;
@@ -19,30 +20,43 @@ namespace WololoPrueba.Services
         }
         public ColegioService() { }
 
-        public async Task<IEnumerable<Colegio>> Listar()
+        public async Task<IEnumerable<ColegioDto>> Listar()
         {
-            return await bdcontexto.LosColegios.ToListAsync();
+            var los_colegios = await bdcontexto.LosColegios.ToListAsync();
+            return mapeador.Map<List<ColegioDto>>(los_colegios);
         }
 
-        public async Task<Colegio> Buscar(int id)
+        public async Task<ColegioDto> Buscar(int id)
         {
             var colegio = await bdcontexto.LosColegios.Where(c => c.ColegioId == id).FirstOrDefaultAsync();
-            return colegio;
+            return mapeador.Map<ColegioDto>(colegio);
         }
 
-        public async Task<Colegio> Agregar(ColegioCrearDto nuevo_c)
+        public async Task<ColegioDto> Agregar(ColegioDto nuevo_c)
         {
             var colegio_nuevo = mapeador.Map<Colegio>(nuevo_c);
             bdcontexto.LosColegios.Add(colegio_nuevo);
             await bdcontexto.SaveChangesAsync();
-            return colegio_nuevo;
+            return mapeador.Map<ColegioDto>(colegio_nuevo);
         }
 
-        public async Task<Colegio> Modificar(Colegio cambiar_c)
+        public async Task<ColegioDto> Modificar(int id, ColegioDto cambiar_c)
         {
-            bdcontexto.LosColegios.Update(cambiar_c);
-            await bdcontexto.SaveChangesAsync();
-            return cambiar_c;
+            var colegio_cambiar = await bdcontexto.LosColegios.Where(c => c.ColegioId == id).FirstOrDefaultAsync();
+            if(colegio_cambiar == null)
+            {
+                return null;
+            }
+            else
+            {
+                colegio_cambiar.ColegioId = id;
+                colegio_cambiar.Nmbr = cambiar_c.Nmbr;
+                colegio_cambiar.Nivel = cambiar_c.Nivel;
+                colegio_cambiar.Direccn = cambiar_c.Direccn;
+                bdcontexto.LosColegios.Update(colegio_cambiar);
+                await bdcontexto.SaveChangesAsync();
+                return mapeador.Map<ColegioDto>(colegio_cambiar);
+            }
         }
 
         public async Task<bool> Eliminar(int id)

@@ -2,10 +2,9 @@
 
 namespace WololoPrueba.Models
 {
-    public partial class Premios
+    public class Premio
     {
-        [Key]
         public int PremioId { get; set; }
-        public string nombPremio { get; set; }
+        public string NombPremio { get; set; }
     }
 }

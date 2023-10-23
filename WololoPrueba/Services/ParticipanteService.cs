@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection.Metadata.Ecma335;
 using WololoPrueba.DbContexts;
 using WololoPrueba.Models;
 using WololoPrueba.ObjetosTransferir;
@@ -19,30 +20,45 @@ namespace WololoPrueba.Services
         }
         public ParticipanteService() { }
 
-        public async Task<IEnumerable<Participante>> Listar()
+        public async Task<IEnumerable<ParticipanteDto>> Listar()
         {
-            return await bdcontexto.LosParticipantes.ToListAsync();
+            var los_participantes = await bdcontexto.LosParticipantes.ToListAsync();
+            return mapeador.Map<List<ParticipanteDto>>(los_participantes);
         }
 
-        public async Task<Participante> Buscar(int id)
+        public async Task<ParticipanteDto> Buscar(int id)
         {
             var participante = await bdcontexto.LosParticipantes.Where(p => p.ParticipanteId == id).FirstOrDefaultAsync();
-            return participante;
+            return mapeador.Map<ParticipanteDto>(participante);
         }
 
-        public async Task<Participante> Agregar(ParticipanteCrearDto nuevo_p)
+        public async Task<ParticipanteDto> Agregar(ParticipanteDto nuevo_p)
         {
             var participante_nuevo = mapeador.Map<Participante>(nuevo_p);
             bdcontexto.LosParticipantes.Add(participante_nuevo);
             await bdcontexto.SaveChangesAsync();
-            return participante_nuevo;
+            return mapeador.Map<ParticipanteDto>(participante_nuevo);
         }
 
-        public async Task<Participante> Modificar(Participante cambiar_p)
+        public async Task<ParticipanteDto> Modificar(int id, ParticipanteDto cambiar_p)
         {
-            bdcontexto.LosParticipantes.Update(cambiar_p);
-            await bdcontexto.SaveChangesAsync();
-            return cambiar_p;
+            var participante_cambiar = await bdcontexto.LosParticipantes.Where(p => p.ParticipanteId == id).FirstOrDefaultAsync();
+            if(participante_cambiar == null)
+            {
+                return null;
+            }
+            else
+            {
+                participante_cambiar.ParticipanteId = id;
+                participante_cambiar.Nmbrs = cambiar_p.Nmbrs;
+                participante_cambiar.Aplld = cambiar_p.Aplld;
+                participante_cambiar.Dni = cambiar_p.Dni;
+                participante_cambiar.FechaNac = cambiar_p.FechaNac;
+                participante_cambiar.ColegioId = cambiar_p.ColegioId;
+                bdcontexto.LosParticipantes.Update(participante_cambiar);
+                await bdcontexto.SaveChangesAsync();
+                return mapeador.Map<ParticipanteDto>(participante_cambiar);
+            }
         }
 
         public async Task<bool> Eliminar(int id)

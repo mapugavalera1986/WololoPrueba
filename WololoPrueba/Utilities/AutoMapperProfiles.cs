@@ -9,9 +9,10 @@ namespace WololoPrueba.Utilities
         public AutoMapperProfiles()
         {
             CreateMap<Civ, CivDto>().ReverseMap();
-            CreateMap<Colegio, ColegioCrearDto>().ReverseMap();
-            CreateMap<Participante, ParticipanteCrearDto>().ReverseMap();
-            CreateMap<Premios , PremiosCrearDto>().ReverseMap();
+            CreateMap<Colegio, ColegioDto>().ReverseMap();
+            CreateMap<Participante, ParticipanteDto>().ReverseMap();
+            CreateMap<Ensayo, EnsayoDto>().ReverseMap();
+            CreateMap<Premio, PremioDto>().ReverseMap();
         }
     }
 }

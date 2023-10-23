@@ -11,7 +11,7 @@ namespace WololoPrueba.DbContexts
         public DbSet<Colegio> LosColegios { get; set; }
         public DbSet<Participante> LosParticipantes { get; set; }
         public DbSet<Ensayo> LosEnsayos { get; set; }
-        public DbSet<Premios> LosPremios { get; set; }
+        public DbSet<Premio> LosPremios { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

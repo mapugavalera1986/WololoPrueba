@@ -13,19 +13,19 @@ namespace WololoPrueba.Controllers
         public ParticipanteController(IParticipanteRepository participanteRepository) { this.participanteRepository = participanteRepository; }
 
         [HttpGet]
-        public async Task<IEnumerable<Participante>> Listar() { return await participanteRepository.Listar(); }
+        public async Task<IEnumerable<ParticipanteDto>> Listar() { return await participanteRepository.Listar(); }
 
         [HttpGet]
         [Route("{id}")]
-        public async Task<Participante> Buscar(int id) { return await participanteRepository.Buscar(id);}
+        public async Task<ParticipanteDto> Buscar(int id) { return await participanteRepository.Buscar(id);}
 
         [HttpPost]
         [Route("agregar")]
-        public async Task<Participante> Agregar(ParticipanteCrearDto nuevo_p) { return await participanteRepository.Agregar(nuevo_p); }
+        public async Task<ParticipanteDto> Agregar(ParticipanteDto nuevo_p) { return await participanteRepository.Agregar(nuevo_p); }
 
         [HttpPut]
         [Route("modificar")]
-        public async Task<Participante> Modificar(Participante cambiar_p) { return await participanteRepository.Modificar(cambiar_p); }
+        public async Task<ParticipanteDto> Modificar(int id, ParticipanteDto cambiar_p) { return await participanteRepository.Modificar(id, cambiar_p); }
 
         [HttpDelete]
         [Route("eliminar")]

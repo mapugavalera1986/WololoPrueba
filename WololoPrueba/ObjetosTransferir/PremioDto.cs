@@ -2,11 +2,10 @@
 
 namespace WololoPrueba.ObjetosTransferir
 {
-    public class PremiosCrearDto
+    public class PremioDto
     {
+        public int PremioId { get; set; }
         [Required(ErrorMessage = "Se necesita el especificar el Premio")]
-        public string nombPremio { get; set; }
-
-
+        public string NombPremio { get; set; }
     }
 }

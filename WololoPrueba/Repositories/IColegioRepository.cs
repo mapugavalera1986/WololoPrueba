@@ -1,14 +1,15 @@
-﻿using WololoPrueba.Models;
+﻿using Microsoft.AspNetCore.Mvc;
+using WololoPrueba.Models;
 using WololoPrueba.ObjetosTransferir;
 
 namespace WololoPrueba.Repositories
 {
     public interface IColegioRepository
     {
-        public Task<IEnumerable<Colegio>> Listar();
-        public Task<Colegio> Buscar(int id);
-        public Task<Colegio> Agregar(ColegioCrearDto nuevo_c);
-        public Task<Colegio> Modificar(Colegio cambiar_c);
+        public Task<IEnumerable<ColegioDto>> Listar();
+        public Task<ColegioDto> Buscar(int id);
+        public Task<ColegioDto> Agregar(ColegioDto nuevo_c);
+        public Task<ColegioDto> Modificar(int id, ColegioDto cambiar_c);
         public Task<bool> Eliminar(int id);
     }
 }

@@ -20,26 +20,26 @@ namespace WololoPrueba.Services
             }
             public PremiosService() { }
 
-            public async Task<IEnumerable<Premios>> Listar()
+            public async Task<IEnumerable<Premio>> Listar()
             {
                 return await bdcontexto.LosPremios.ToListAsync();
             }
 
-            public async Task<Premios> Buscar(int id)
+            public async Task<Premio> Buscar(int id)
             {
                 var premios = await bdcontexto.LosPremios.Where(p => p.PremioId == id).FirstOrDefaultAsync();
                 return premios;
             }
 
-            public async Task<Premios> Agregar(PremiosCrearDto nuevo_p)
+            public async Task<Premio> Agregar(PremioDto nuevo_p)
             {
-                var premio_nuevo = mapeador.Map<Premios>(nuevo_p);
+                var premio_nuevo = mapeador.Map<Premio>(nuevo_p);
                 bdcontexto.LosPremios.Add(premio_nuevo);
                 await bdcontexto.SaveChangesAsync();
                 return premio_nuevo;
             }
 
-            public async Task<Premios> Modificar(Premios cambiar_p)
+            public async Task<Premio> Modificar(Premio cambiar_p)
             {
                 bdcontexto.LosPremios.Update(cambiar_p);
                 await bdcontexto.SaveChangesAsync();

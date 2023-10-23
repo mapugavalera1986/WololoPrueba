@@ -3,8 +3,9 @@ using System.ComponentModel;
 
 namespace WololoPrueba.ObjetosTransferir
 {
-    public class ParticipanteCrearDto
+    public class ParticipanteDto
     {
+        public int ParticipanteId { get; set; }
         [Required(ErrorMessage = "Es obligatorio un nombre")]
         public string Nmbrs { get; set; }
 

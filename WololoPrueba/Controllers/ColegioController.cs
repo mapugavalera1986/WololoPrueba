@@ -13,19 +13,19 @@ namespace WololoPrueba.Controllers
         public ColegioController(IColegioRepository colegioRepository) { this.colegioRepository = colegioRepository; }
 
         [HttpGet]
-        public async Task<IEnumerable<Colegio>> Listar() { return await colegioRepository.Listar(); }
+        public async Task<IEnumerable<ColegioDto>> Listar() { return await colegioRepository.Listar(); }
 
         [HttpGet]
         [Route("{id}")]
-        public async Task<Colegio> Buscar(int id) { return await colegioRepository.Buscar(id); }
+        public async Task<ColegioDto> Buscar(int id) { return await colegioRepository.Buscar(id); }
 
         [HttpPost]
         [Route("agregar")]
-        public async Task<Colegio> Agregar(ColegioCrearDto nuevo_c) { return await colegioRepository.Agregar(nuevo_c); }
+        public async Task<ColegioDto> Agregar(ColegioDto nuevo_c) { return await colegioRepository.Agregar(nuevo_c); }
 
         [HttpPut]
-        [Route("modificar")]
-        public async Task<Colegio> Modificar(Colegio cambiar_c) { return await colegioRepository.Modificar(cambiar_c); }
+        [Route("modificar/{id}")]
+        public async Task<ColegioDto> Modificar(int id, ColegioDto cambiar_c) { return await colegioRepository.Modificar(id, cambiar_c); }
 
         [HttpDelete]
         [Route("eliminar")]

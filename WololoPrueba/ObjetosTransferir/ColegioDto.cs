@@ -2,8 +2,9 @@
 
 namespace WololoPrueba.ObjetosTransferir
 {
-    public class ColegioCrearDto
+    public class ColegioDto
     {
+        public int ColegioId { get; set; }
         [Required(ErrorMessage = "Se necesita el nombre del colegio")]
         public string Nmbr { get; set; }
 

@@ -1,6 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
+using System.Security.AccessControl;
 using WololoPrueba.DbContexts;
 using WololoPrueba.Models;
+using WololoPrueba.ObjetosTransferir;
 using WololoPrueba.Repositories;
 
 namespace WololoPrueba.Services
@@ -8,26 +11,29 @@ namespace WololoPrueba.Services
     public class EnsayoService : IEnsayoRepository
     {
         private readonly AppDbContext bdContexto;
-        public EnsayoService(AppDbContext bdContexto) { this.bdContexto = bdContexto; }
+        private readonly IMapper mapeador;
+        public EnsayoService(AppDbContext bdContexto, IMapper mapeador)
+        { this.bdContexto = bdContexto; this.mapeador = mapeador; }
         public EnsayoService() { }
 
-
-        public async Task<Ensayo> Agregar(Ensayo ensayo)
+        public async Task<EnsayoDto> Agregar(EnsayoDto ensayo)
         {
-            bdContexto.Add(ensayo);
+            var procesar_ensayo = mapeador.Map<Ensayo>(ensayo);
+            bdContexto.LosEnsayos.Add(procesar_ensayo);
             await bdContexto.SaveChangesAsync();
-            return ensayo;
+            return mapeador.Map<EnsayoDto>(ensayo);
         }
 
-        public async Task<Ensayo> Buscar(int id)
+        public async Task<EnsayoDto> Buscar(int id)
         {
             var ensayo = await bdContexto.LosEnsayos.Where(e => e.EnsayoId == id).FirstOrDefaultAsync();
-            return ensayo;
+            return mapeador.Map<EnsayoDto>(ensayo);
         }
 
-        public async Task<IEnumerable<Ensayo>> Listar()
+        public async Task<IEnumerable<EnsayoDto>> Listar()
         {
-            return await bdContexto.LosEnsayos.ToListAsync();
+            var los_ensayos = await bdContexto.LosEnsayos.ToListAsync();
+            return mapeador.Map<List<EnsayoDto>>(los_ensayos);
         }
     }
 }

@@ -1,12 +1,13 @@
 ﻿using WololoPrueba.Models;
+using WololoPrueba.ObjetosTransferir;
 
 namespace WololoPrueba.Repositories
 {
     public interface IEnsayoRepository
     {
-        public Task<IEnumerable<Ensayo>> Listar();
-        public Task<Ensayo> Buscar(int id);
-        public Task<Ensayo> Agregar(Ensayo ensayo);
+        public Task<IEnumerable<EnsayoDto>> Listar();
+        public Task<EnsayoDto> Buscar(int id);
+        public Task<EnsayoDto> Agregar(EnsayoDto ensayo);
 
     }
 }
