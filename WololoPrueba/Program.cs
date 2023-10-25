@@ -2,6 +2,7 @@ using WololoPrueba.DbContexts;
 using Microsoft.EntityFrameworkCore;
 using WololoPrueba.Repositories;
 using WololoPrueba.Services;
+using WololoPrueba.Excepciones;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -37,6 +38,8 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+
+app.UseMiddleware(typeof(AManejarExcepciones));
 
 app.MapControllers();
 

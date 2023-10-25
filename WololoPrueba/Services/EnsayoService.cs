@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using System.Security.AccessControl;
 using WololoPrueba.DbContexts;
+using WololoPrueba.Excepciones;
 using WololoPrueba.Models;
 using WololoPrueba.ObjetosTransferir;
 using WololoPrueba.Repositories;
@@ -27,6 +27,7 @@ namespace WololoPrueba.Services
         public async Task<EnsayoDto> Buscar(int id)
         {
             var ensayo = await bdContexto.LosEnsayos.Where(e => e.EnsayoId == id).FirstOrDefaultAsync();
+            if (ensayo == null) { throw new NotFoundException($"No se encontró un ensayo con la id {id}"); }
             return mapeador.Map<EnsayoDto>(ensayo);
         }
 

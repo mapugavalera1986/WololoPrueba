@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using WololoPrueba.DbContexts;
+using WololoPrueba.Excepciones;
 using WololoPrueba.Models;
 using WololoPrueba.ObjetosTransferir;
 using WololoPrueba.Repositories;
@@ -22,6 +23,7 @@ namespace WololoPrueba.Services
         public async Task<CivDto> Buscar(int civId)
         {
             var civ = await bdcontexto.LasCivs.Where(c => c.CivId == civId).FirstOrDefaultAsync();
+            if (civ == null) { throw new NotFoundException($"No se encontró una civilización con la id {civId}"); }
             return mapeador.Map<CivDto>(civ);
         }
 

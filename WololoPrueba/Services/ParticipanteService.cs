@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using System.Reflection.Metadata.Ecma335;
 using WololoPrueba.DbContexts;
+using WololoPrueba.Excepciones;
 using WololoPrueba.Models;
 using WololoPrueba.ObjetosTransferir;
 using WololoPrueba.Repositories;
@@ -29,6 +29,7 @@ namespace WololoPrueba.Services
         public async Task<ParticipanteDto> Buscar(int id)
         {
             var participante = await bdcontexto.LosParticipantes.Where(p => p.ParticipanteId == id).FirstOrDefaultAsync();
+            if (participante == null) { throw new NotFoundException($"No se encontró un participante con la id {id}"); }
             return mapeador.Map<ParticipanteDto>(participante);
         }
 
@@ -45,7 +46,7 @@ namespace WololoPrueba.Services
             var participante_cambiar = await bdcontexto.LosParticipantes.Where(p => p.ParticipanteId == id).FirstOrDefaultAsync();
             if(participante_cambiar == null)
             {
-                return null;
+                throw new NotFoundException($"No se encontró un participante con la id {id}");
             }
             else
             {

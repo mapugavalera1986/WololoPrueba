@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using WololoPrueba.DbContexts;
+using WololoPrueba.Excepciones;
 using WololoPrueba.Models;
 using WololoPrueba.ObjetosTransferir;
 using WololoPrueba.Repositories;
@@ -29,6 +30,7 @@ namespace WololoPrueba.Services
         public async Task<PremioDto> Buscar(int id)
         {
             var el_premio = await bdcontexto.LosPremios.Where(p => p.PremioId == id).FirstOrDefaultAsync();
+            if (el_premio == null) { throw new NotFoundException($"No se encontró un premio con la id {id}"); }
             return mapeador.Map<PremioDto>(el_premio);
         }
 
@@ -43,7 +45,7 @@ namespace WololoPrueba.Services
         public async Task<PremioDto> Modificar(int id, PremioDto cambiar_p)
         {
             var premio_cambiar = await bdcontexto.LosPremios.Where(p => p.PremioId == id).FirstOrDefaultAsync();
-            if (premio_cambiar == null) { return null; }
+            if (premio_cambiar == null) { throw new NotFoundException($"No se encontró un premio con la id {id}"); }
             else { premio_cambiar.PremioId = id; premio_cambiar.NombPremio = cambiar_p.NombPremio; }
             bdcontexto.LosPremios.Update(premio_cambiar);
             await bdcontexto.SaveChangesAsync();

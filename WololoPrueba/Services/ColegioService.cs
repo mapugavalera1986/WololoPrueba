@@ -1,10 +1,10 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WololoPrueba.DbContexts;
 using WololoPrueba.Models;
 using WololoPrueba.ObjetosTransferir;
 using WololoPrueba.Repositories;
+using WololoPrueba.Excepciones;
 
 namespace WololoPrueba.Services
 {
@@ -29,6 +29,7 @@ namespace WololoPrueba.Services
         public async Task<ColegioDto> Buscar(int id)
         {
             var colegio = await bdcontexto.LosColegios.Where(c => c.ColegioId == id).FirstOrDefaultAsync();
+            if(colegio == null) { throw new NotFoundException($"No se encontró un colegio con la id {id}"); }
             return mapeador.Map<ColegioDto>(colegio);
         }
 
@@ -45,7 +46,7 @@ namespace WololoPrueba.Services
             var colegio_cambiar = await bdcontexto.LosColegios.Where(c => c.ColegioId == id).FirstOrDefaultAsync();
             if(colegio_cambiar == null)
             {
-                return null;
+                throw new NotFoundException($"No se encontró un colegio con la id {id}");
             }
             else
             {
