@@ -13,22 +13,27 @@ namespace WololoPrueba.Controllers
         public ParticipanteController(IParticipanteRepository participanteRepository) { this.participanteRepository = participanteRepository; }
 
         [HttpGet]
-        public async Task<IEnumerable<ParticipanteDto>> Listar() { return await participanteRepository.Listar(); }
+        public async Task<ActionResult<IEnumerable<ParticipanteDto>>> Listar() { 
+            return StatusCode(StatusCodes.Status200OK, await participanteRepository.Listar()); }
 
         [HttpGet]
         [Route("{id}")]
-        public async Task<ParticipanteDto> Buscar(int id) { return await participanteRepository.Buscar(id);}
+        public async Task<ActionResult<ParticipanteDto>> Buscar(int id) {
+            return StatusCode(StatusCodes.Status200OK, await participanteRepository.Buscar(id));}
 
         [HttpPost]
         [Route("agregar")]
-        public async Task<ParticipanteDto> Agregar(ParticipanteDto nuevo_p) { return await participanteRepository.Agregar(nuevo_p); }
+        public async Task<ActionResult<ParticipanteDto>> Agregar(ParticipanteDto nuevo_p) { 
+            return StatusCode(StatusCodes.Status201Created, await participanteRepository.Agregar(nuevo_p)); }
 
         [HttpPut]
         [Route("modificar/{id}")]
-        public async Task<ParticipanteDto> Modificar(int id, ParticipanteDto cambiar_p) { return await participanteRepository.Modificar(id, cambiar_p); }
+        public async Task<ActionResult<ParticipanteDto>> Modificar(int id, ParticipanteDto cambiar_p) { 
+            return StatusCode(StatusCodes.Status200OK, await participanteRepository.Modificar(id, cambiar_p)); }
 
         [HttpDelete]
         [Route("eliminar")]
-        public async Task<bool> Eliminar(int id) { return await participanteRepository.Eliminar(id); }
+        public async Task<ActionResult<bool>> Eliminar(int id) { 
+            return StatusCode(StatusCodes.Status200OK, await participanteRepository.Eliminar(id)); }
     }
 }

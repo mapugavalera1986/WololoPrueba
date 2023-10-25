@@ -13,10 +13,12 @@ namespace WololoPrueba.Controllers
         public CivController(ICivRepository civRepository) { this.civRepository = civRepository; }
 
         [HttpGet]
-        public async Task<IEnumerable<CivDto>> Listar() { return await civRepository.Listar(); }
+        public async Task<ActionResult<IEnumerable<CivDto>>> Listar() {
+            return StatusCode(StatusCodes.Status200OK, await civRepository.Listar()); }
 
         [HttpGet]
         [Route("{id}")]
-        public async Task<CivDto> Buscar(int id) { return await civRepository.Buscar(id); }
+        public async Task<ActionResult<CivDto>> Buscar(int id) {
+            return StatusCode(StatusCodes.Status200OK, await civRepository.Buscar(id)); }
     }
 }

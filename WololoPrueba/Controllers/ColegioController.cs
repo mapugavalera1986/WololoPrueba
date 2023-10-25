@@ -13,22 +13,27 @@ namespace WololoPrueba.Controllers
         public ColegioController(IColegioRepository colegioRepository) { this.colegioRepository = colegioRepository; }
 
         [HttpGet]
-        public async Task<IEnumerable<ColegioDto>> Listar() { return await colegioRepository.Listar(); }
+        public async Task<ActionResult<IEnumerable<ColegioDto>>> Listar() {
+            return StatusCode(StatusCodes.Status200OK, await colegioRepository.Listar()); }
 
         [HttpGet]
         [Route("{id}")]
-        public async Task<ColegioDto> Buscar(int id) { return await colegioRepository.Buscar(id); }
+        public async Task<ActionResult<ColegioDto>> Buscar(int id) {
+            return StatusCode(StatusCodes.Status200OK, await colegioRepository.Buscar(id)); }
 
         [HttpPost]
         [Route("agregar")]
-        public async Task<ColegioDto> Agregar(ColegioDto nuevo_c) { return await colegioRepository.Agregar(nuevo_c); }
+        public async Task<ActionResult<ColegioDto>> Agregar(ColegioDto nuevo_c) {
+            return StatusCode(StatusCodes.Status201Created, await colegioRepository.Agregar(nuevo_c)); }
 
         [HttpPut]
         [Route("modificar/{id}")]
-        public async Task<ColegioDto> Modificar(int id, ColegioDto cambiar_c) { return await colegioRepository.Modificar(id, cambiar_c); }
+        public async Task<ActionResult<ColegioDto>> Modificar(int id, ColegioDto cambiar_c) { 
+            return StatusCode(StatusCodes.Status200OK, await colegioRepository.Modificar(id, cambiar_c)); }
 
         [HttpDelete]
         [Route("eliminar")]
-        public async Task<bool> Eliminar(int id) { return await colegioRepository.Eliminar(id); }
+        public async Task<ActionResult<bool>> Eliminar(int id) { 
+            return StatusCode(StatusCodes.Status200OK, await colegioRepository.Eliminar(id)); }
     }
 }

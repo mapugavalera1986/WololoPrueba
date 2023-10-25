@@ -15,23 +15,29 @@ namespace WololoPrueba.Controllers
 
             [HttpGet]
             [Route("listar")]
-            public async Task<IEnumerable<PremioDto>> Listar() { return await premiosRepository.Listar(); }
+            public async Task<ActionResult<IEnumerable<PremioDto>>> Listar() { 
+            return StatusCode(StatusCodes.Status200OK, await premiosRepository.Listar()); 
+        }
 
             [HttpGet]
             [Route("{id}")]
-            public async Task<PremioDto> Buscar(int id) { return await premiosRepository.Buscar(id); }
+            public async Task<ActionResult<PremioDto>> Buscar(int id) {
+            return StatusCode(StatusCodes.Status200OK, await premiosRepository.Buscar(id)); }
 
             [HttpPost]
             [Route("agregar")]
-            public async Task<PremioDto> Agregar(PremioDto nuevo_p) { return await premiosRepository.Agregar(nuevo_p); }
+            public async Task<ActionResult<PremioDto>> Agregar(PremioDto nuevo_p) { 
+            return StatusCode(StatusCodes.Status201Created, await premiosRepository.Agregar(nuevo_p)); }
 
             [HttpPut]
             [Route("modificar/{id}")]
-            public async Task<PremioDto> Modificar(int id, PremioDto cambiar_p) { return await premiosRepository.Modificar(id, cambiar_p); }
+            public async Task<ActionResult<PremioDto>> Modificar(int id, PremioDto cambiar_p) { 
+            return StatusCode(StatusCodes.Status200OK, await premiosRepository.Modificar(id, cambiar_p)); }
 
             [HttpDelete]
             [Route("eliminar")]
-            public async Task<bool> Eliminar(int id) { return await premiosRepository.Eliminar(id); }
+            public async Task<ActionResult<bool>> Eliminar(int id) {
+            return StatusCode(StatusCodes.Status200OK, await premiosRepository.Eliminar(id)); }
         }
     
 }
